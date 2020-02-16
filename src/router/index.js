@@ -3,20 +3,25 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
-  routes: [
+export const constantRoutes = [
     {
       path: '/',
       name: 'login',
-      component: ()=>import('@/views/user/login')
+      component: ()=>import('@/views/user/login'),
+      meta:{title:'登录'}
     },{
-      path:'/gauge',
-      name:"gauge",
-      component: ()=>import('@/views/demo/gauge')
-    },{
-      path:'/pieCharts',
-      name:'pieCharts',
-      component:()=>import('@/views/demo/pieCharts')
+      path: '/index',
+      name: 'index',
+      component: ()=>import('@/views/index/index'),
+      meta:{title:'主页'}
     }
-  ]
+];
+
+const createRouter =() => new Router({
+    mode: 'history',
+    scrollBehavior: ()=>({y: 0}),
+    routes: constantRoutes
 })
+
+const router = createRouter();
+export default router

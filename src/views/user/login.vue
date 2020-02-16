@@ -76,6 +76,12 @@ export default {
               message: '登录成功，即将跳转~',
               type:'success'
             })
+            this.$router.push({
+              path:'/index',
+              query:{
+                id: response.data.id
+              }
+            })
           }else{
             this.userInfo.account = response.data.account;
             this.$message({

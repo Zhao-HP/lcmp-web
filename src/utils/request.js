@@ -1,17 +1,16 @@
 import axios from 'axios'
+import qs from 'qs'
 
 const proxy = '/path';
-
-
 const Axios = axios.create({
     timeout: 10000,
     responseType: 'json',
     withCredentials: true, // 是否允许带cookie这些
+    traditional: true,
     headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+        'traditional':true
     }
 });
-
 
 /**
  * get请求
@@ -35,11 +34,11 @@ function get(url, params) {
 /**
  * post方法，对应post请求
  * @param {String} url [请求的url地址]
- * @param {Object} param [请求时携带的参数]
+ * @param {Object} params [请求时携带的参数]
  */
-function post(url, param = {}) {
+function post(url, params = {}) {
     return new Promise((resolve, reject) => {
-        Axios.post(proxy+url, param)
+        Axios.post(proxy+url, qs.stringify(params))
             .then(res => {
                 resolve(res.data)
             }, err => {
