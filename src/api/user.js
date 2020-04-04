@@ -1,9 +1,9 @@
-import request from "../utils/request";
+import request from '@/utils/request'
 
-export function getUserInfo(query){
-    return request("/getUserInfoByNameOrMail",query,'get')
+export function login(params) {
+  return request('/getUserInfoByNameOrMail', {
+    method: 'post',
+    params
+  }, "lcmp")
 }
 
-export function getUserInfoById(query){
-    return request("/getUserInfo",query,"get")
-}

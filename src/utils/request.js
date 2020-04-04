@@ -1,58 +1,70 @@
 import axios from 'axios'
-import qs from 'qs'
+import {MessageBox, Message} from 'element-ui'
+import store from '@/store'
+import {getToken} from '@/utils/auth'
+import {getBaseURL} from './base-url-config'
+import storageUtil from "./storageUtil";
 
-const proxy = '/path';
-const Axios = axios.create({
-    timeout: 10000,
-    responseType: 'json',
-    withCredentials: true, // 是否允许带cookie这些
-    traditional: true,
-    headers: {
-        'traditional':true
-    }
+const service = axios.create({
+  withCredentials: true, // send cookies when cross-domain requests
+  timeout: 50000 // request timeout
 });
 
-/**
- * get请求
- * @param {String} url 请求地址
- * @param {Object} params 请求参数
- */
-function get(url, params) {
-    return new Promise((resolve, reject) => {
-        Axios.get(proxy+url, {
-            params: params
-        })
-            .then(res => {
-                resolve(res.data)
-            })
-            .catch(err => {
-                reject(err)
-            })
-    })
-}
-
-/**
- * post方法，对应post请求
- * @param {String} url [请求的url地址]
- * @param {Object} params [请求时携带的参数]
- */
-function post(url, params = {}) {
-    return new Promise((resolve, reject) => {
-        Axios.post(proxy+url, qs.stringify(params))
-            .then(res => {
-                resolve(res.data)
-            }, err => {
-                reject(err.data)
-            })
-    })
-}
-
-const request = (url, params = {},type) => {
-    if(type==='get'){
-        return get(url,params);
-    }else{
-        return post(url,params);
+// request interceptor
+service.interceptors.request.use(
+  config => {
+    const serverId = storageUtil.readData("serverId");
+    if (serverId){
+      config.params.serverId = serverId
     }
+    return config
+  },
+  error => {
+    console.log(error);
+    return Promise.reject(error)
+  }
+);
+
+service.interceptors.response.use(
+  response => {
+    const res = response.data;
+    return res
+  },
+  error => {
+    console.log('err' + error); // for debug
+    Message({
+      message: error.message,
+      type: 'error',
+      duration: 5 * 1000
+    });
+    return Promise.reject(error)
+  }
+);
+
+const request = (url, config = {}, baseOriginal) => {
+  if (config.formData) {
+    Object.assign(config, {
+      transformRequest: [
+        function (data) {
+          let ret = '';
+          for (let it in data) {
+            if (data.hasOwnProperty(it)) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&';
+            }
+          }
+          return ret;
+        }
+      ],
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+  }
+
+  return service({
+    url: config.raw ? url : getBaseURL(baseOriginal) + url,
+    ...config
+  });
 };
 
 export default request
