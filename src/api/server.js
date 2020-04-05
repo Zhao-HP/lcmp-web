@@ -7,9 +7,10 @@ export function getServerInfoByUid(params) {
   }, 'lcmp')
 }
 
-export function getDiskInfo(params) {
-  return request('/getDiskInfo', {
+export function getServerUsageInfo(params) {
+  return request('/getServerUsageInfo', {
     method: 'post',
     params
   }, 'lcmp')
 }
+
