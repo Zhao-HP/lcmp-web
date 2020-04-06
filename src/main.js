@@ -12,7 +12,9 @@ import App from './App'
 import store from './store'
 import router from './router'
 
-import '@/icons' // icon
+import '@/icons'
+import fr from 'element-ui/src/locale/lang/fr'
+import storageUtil from './utils/storageUtil' // icon
 //import '@/permission' // permission control
 
 /**
@@ -34,6 +36,20 @@ Vue.use(ElementUI, { locale })
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
+
+router.beforeEach((to, from, next) => {
+  const path = to.path;
+  if (!path.includes("login")){
+    if (storageUtil.readData("userInfo") === null ){
+      next('/login')
+    }else{
+      next()
+    }
+
+  }else{
+    next()
+  }
+})
 
 new Vue({
   el: '#app',
