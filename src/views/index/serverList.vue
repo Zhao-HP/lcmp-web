@@ -59,7 +59,7 @@
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
           <el-button type="info" size="mini" @click="handleApplicationInfo">应用管理</el-button>
-          <el-button type="info" size="mini">应用配置</el-button>
+          <el-button type="info" size="mini" @click="handleServerConfig">应用配置</el-button>
           <el-button type="info" size="mini" @click="checkServiceInfo(scope.row.id)">服务器信息</el-button>
         </template>
       </el-table-column>
@@ -196,6 +196,11 @@
       handleApplicationInfo(){
         this.$router.push({
           path: '/server/applicationList'
+        })
+      },
+      handleServerConfig(){
+        this.$router.push({
+          path: '/server/serverConfig'
         })
       }
     }

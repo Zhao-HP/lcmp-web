@@ -7,17 +7,14 @@ const serverRouter = {
   name: '服务器管理',
   meta: {
     title: '服务器管理',
-    icon: 'el-icon-s-platform'
+    icon: 'example'
   },
   children: [
     {
       path: 'server-list',
       component: ()=>import("@/views/index/serverList"),
       name:'server-list',
-      meta:{
-        title:'服务器列表',
-        icon: 'el-icon-s-grid'
-      }
+      meta:{ title:'服务器列表'}
     },
     {
       path: 'dashboard',
@@ -32,6 +29,13 @@ const serverRouter = {
       name: 'applicationList',
       meta:{title: "应用管理"},
       hidden: true
+    },
+    {
+      path: 'serverConfig',
+      component: ()=>import("@/views/server/server-config"),
+      name:'serverConfig',
+      meta:{title:"服务器配置"},
+      hidden:true
     }
   ]
 };
