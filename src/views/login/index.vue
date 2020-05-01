@@ -103,6 +103,7 @@ export default {
     },
     handleLogin() {
       this.loading = true;
+      storageUtil.removeData("userInfo");
       login(this.loginForm).then(response => {
         if (response.success){
           if (response.data.password !== this.loginForm.password){

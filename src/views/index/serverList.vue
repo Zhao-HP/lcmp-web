@@ -154,14 +154,14 @@
         let params = this.params
         params.userId = this.userInfo.id
         getServerInfoByUid(params).then(response => {
-          console.log(response)
+          // console.log(response)
           this.tableList = response.data.records
           this.total = response.data.total
         })
       },
       // 根据服务器ID获得服务器信息【部分信息从服务器上获取】
       checkServiceInfo(serverId) {
-        console.log(serverId)
+        // console.log(serverId)
         this.$router.push({
           path: '/server/dashboard'
         })

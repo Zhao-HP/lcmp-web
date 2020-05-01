@@ -16,6 +16,7 @@
       :total="total"
       :page.sync="pageNum"
       :limit.sync="pageSize"
+      :pageSizes="[30,50,70,90,100]"
       @pagination="getApplicationList()"
     />
   </el-main>
@@ -39,7 +40,7 @@
         loading: false,
         total: 0,
         pageNum: 1,
-        pageSize: 100,
+        pageSize: 30,
       }
     },
     created() {

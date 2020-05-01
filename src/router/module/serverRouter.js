@@ -32,7 +32,7 @@ const serverRouter = {
     },
     {
       path: 'serverConfig',
-      component: ()=>import("@/views/server/server-config"),
+      component: ()=>import("@/views/server/config/server-config"),
       name:'serverConfig',
       meta:{title:"服务器配置"},
       hidden:true

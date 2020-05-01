@@ -1,51 +1,58 @@
-import request from "../utils/request";
+import request from "@/utils/request";
 
 export function getServerInfoByUid(params) {
-  return request("/getServerInfoByUid", {
+  return request({
+    url:"/getServerInfoByUid",
     method: 'post',
     params
-  }, 'lcmp')
+  })
 }
 
 export function getServerUsageInfo(params) {
-  return request('/getServerUsageInfo', {
+  return request({
+    url:'/getServerUsageInfo',
     method: 'post',
     params
-  }, 'lcmp')
+  })
 }
 
 export function saveOrUpdateServerInfoById(params) {
-  return request("/saveOrUpdateServerInfoById", {
+  return request({
+    url:"/saveOrUpdateServerInfoById",
     method: 'post',
     params
-  }, 'lcmp')
+  })
 }
 
 export function getApplicationList(params) {
-  return request("/getApplicationList",{
+  return request({
+    url: "/getApplicationList",
     method:'post',
     params
-  }, 'lcmp')
+  })
 }
 
 export function installedApplication(params) {
-  return request("/installedApplication", {
+  return request({
+    url:"/installedApplication",
     method: 'post',
     params
-  }, 'lcmp')
+  })
 }
 
 export function updateApplication(params) {
-  return request("/updateApplication",{
+  return request({
+    url:"/updateApplication",
     method:'post',
     params
-  }, 'lcmp')
+  })
 }
 
 export function removeApplication(params) {
-  return request("/removeApplication", {
+  return request({
+    url:"/removeApplication",
     method:'post',
     params
-  }, 'lcmp')
+  })
 
 }

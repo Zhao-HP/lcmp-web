@@ -6,8 +6,8 @@ import {getBaseURL} from './base-url-config'
 import storageUtil from "./storageUtil";
 
 const service = axios.create({
-  withCredentials: true, // send cookies when cross-domain requests
-  timeout: 50000 // request timeout
+  withCredentials: true,
+  timeout: 50000
 });
 
 // request interceptor
@@ -16,8 +16,13 @@ service.interceptors.request.use(
   config => {
     const serverId = storageUtil.readData("serverId");
     if (serverId){
-      config.params.serverId = serverId
+      config.headers['serverId'] = serverId;
     }
+    const userInfo = storageUtil.readData("userInfo");
+    if (userInfo != null){
+      config.headers['userId'] = userInfo.id
+    }
+    config.url = process.env.VUE_APP_BASE_API + config.url
     return config
   },
   error => {
@@ -28,44 +33,18 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    const res = response.data;
+    const res = response.data
     return res
   },
   error => {
-    console.log('err' + error); // for debug
+    console.log("err" + error);
     Message({
       message: error.message,
-      type: 'error',
+      type: "error",
       duration: 5 * 1000
     });
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 );
 
-const request = (url, config = {}, baseOriginal) => {
-  if (config.formData) {
-    Object.assign(config, {
-      transformRequest: [
-        function (data) {
-          let ret = '';
-          for (let it in data) {
-            if (data.hasOwnProperty(it)) {
-              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&';
-            }
-          }
-          return ret;
-        }
-      ],
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    });
-  }
-
-  return service({
-    url: config.raw ? url : getBaseURL(baseOriginal) + url,
-    ...config
-  });
-};
-
-export default request
+export default service

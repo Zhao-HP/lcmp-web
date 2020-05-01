@@ -2,11 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/layout'
 import serverRouter from "./module/serverRouter";
+import configRouter from './module/configRouter'
 
 Vue.use(Router);
 
 export const constantRoutes = [
-
   {
     path:'/login',
     component: () => import('@/views/login/index'),
@@ -17,10 +17,30 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/login',
   },
+  {
+    path:'/codeMirror',
+    component: Layout,
+    children: [
+      {
+        path: '/index/:configName',
+        component:() =>import('@/components/codeMirror/codeMirror'),
+        meta: {title: "配置文件"},
+        hidden: true
+      },
+      {
+        path:'create',
+        name:'CreateCodeMirror',
+        component:()=>import('@/components/codeMirror/createCodeMirror'),
+        hidden: true
+      }
+    ]
+  },
   serverRouter,
+  configRouter
 ];
 
 const createRouter = () => new Router({
+  mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 });

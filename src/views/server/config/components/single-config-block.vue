@@ -1,0 +1,114 @@
+<template>
+  <div class="configBlock">
+    <div class="header">
+      <div class="configImg">
+        <img src='../../../../assets/configImg/config.png' />
+      </div>
+      <div class="configInfo">
+        <div class="configCode">
+          <span>{{configInfo.configCode}}</span>
+        </div>
+        <div class="configDesc">
+          <span>{{configInfo.configDesc}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span></span>
+      <div class="footerText">
+        <el-button
+          type="info"
+          size="mini" plain
+          :disabled="configInfo.easyBtnIsDisable"
+          class="configBtn">简易配置
+        </el-button>
+        <el-button
+          type="info"
+          size="mini" plain
+          :disabled="configInfo.fileBtnIsDisable"
+          @click="getConfigFileContext(configInfo.configCode)"
+          class="configBtn">配置文件
+        </el-button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'single-config-block',
+    props: {
+      configInfo:{
+        type:Object
+      }
+    },
+    methods:{
+      getConfigFileContext(configName){
+        this.$router.push(`/codeMirror/index/${configName}`)
+      }
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  .configBlock {
+    width: 240px;
+    height: 135px;
+    margin: 0 13px 13px 0;
+    border: 1px solid #ccc;
+    background: -webkit-linear-gradient(top, #fff, #f9f9f9);
+    position: static;
+    border-radius: 5px
+  }
+
+  .header {
+    width: 100%;
+    height: 50%;
+  }
+
+  .configImg{
+    width: 30%;
+    height: 100%;
+    float: left;
+  }
+  .configImg > img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .configInfo{
+    width: 64%;
+    height: 100%;
+    float: left;
+    margin-left: 3%;
+  }
+
+  .configCode{
+    height: 50%;
+    color: #F56C6C;
+    line-height: 30px;
+    border-bottom: solid 1px #cccccc;
+  }
+
+  .configDesc{
+    height: 50%;
+    font-size: 12px;
+    color: #777;
+    padding-top: 5px;
+  }
+
+  .footer {
+    width: 100%;
+    height: 50%;
+    padding-left: 37%;
+  }
+
+  .configBtn {
+    margin-top: 15%;
+    width: 65px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+</style>

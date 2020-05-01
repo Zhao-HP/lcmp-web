@@ -1,31 +1,14 @@
 <template>
   <div class="navbar">
-    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar"/>
-
-    <breadcrumb class="breadcrumb-container"/>
-
+    <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
+    <breadcrumb class="breadcrumb-container" />
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <span class="user-avatar">
-            登录人：{{this.userInfo != null ?this.userInfo.username: ''}}
-          </span>
-          <i class="el-icon-caret-bottom"/>
-        </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/server/server-list">
-            <el-dropdown-item>
-              服务器列表
-            </el-dropdown-item>
-          </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-            <el-dropdown-item>修改用户信息</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      <div class="header-search right-user-info">
+        登录人：{{this.userInfo.username}}
+      </div>
+      <el-button type="text">
+        <svg-icon style="width: 1.5em;height: 1.5em" icon-class="logout" class="user-logout" @click="logout"/>
+      </el-button>
     </div>
   </div>
 </template>
@@ -44,25 +27,26 @@
     computed: {
       ...mapGetters([
         'sidebar',
-        'avatar'
+        'avatar',
+        'name'
       ])
     },
-    data() {
+    data(){
       return {
-        userInfo: ''
+        userInfo:''
       }
     },
     created() {
-      this.userInfo = storageUtil.readData('userInfo')
+      this.userInfo = storageUtil.readData("userInfo");
     },
     methods: {
       toggleSideBar() {
         this.$store.dispatch('app/toggleSideBar')
       },
       async logout() {
-        storageUtil.removeData('userInfo')
-        await this.$router.push({
-          path: '/login'
+        storageUtil.removeData("userInfo");
+        this.$router.push({
+          path:'/login'
         })
       }
     }
@@ -75,7 +59,7 @@
     overflow: hidden;
     position: relative;
     background: #fff;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
     .hamburger-container {
       line-height: 46px;
@@ -83,7 +67,7 @@
       float: left;
       cursor: pointer;
       transition: background .3s;
-      -webkit-tap-highlight-color: transparent;
+      -webkit-tap-highlight-color:transparent;
 
       &:hover {
         background: rgba(0, 0, 0, .025)
@@ -94,6 +78,12 @@
       float: left;
     }
 
+    .user-logout {
+      margin-left: -10px;
+      margin-right: 30px;
+      margin-bottom: 15px;
+    }
+
     .right-menu {
       float: right;
       height: 100%;
@@ -101,6 +91,15 @@
 
       &:focus {
         outline: none;
+      }
+
+      .right-user-info {
+        display: inline-block;
+        padding: 0 30px 0 15px;
+        height: 100%;
+        font-size: 16px;
+        color: #5a5e66;
+        vertical-align: text-bottom;
       }
 
       .right-menu-item {
@@ -129,8 +128,6 @@
           position: relative;
 
           .user-avatar {
-            font-size: 20px;
-            font-family: "Microsoft YaHei UI";
             cursor: pointer;
             width: 40px;
             height: 40px;
