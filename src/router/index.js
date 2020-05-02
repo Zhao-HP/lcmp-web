@@ -20,9 +20,11 @@ export const constantRoutes = [
   {
     path:'/codeMirror',
     component: Layout,
+    name:'配置文件',
     children: [
       {
-        path: '/index/:configName',
+        path: 'index/:configName',
+        name:'index',
         component:() =>import('@/components/codeMirror/codeMirror'),
         meta: {title: "配置文件"},
         hidden: true
