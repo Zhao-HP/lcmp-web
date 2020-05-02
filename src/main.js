@@ -16,7 +16,18 @@ import '@/icons'
 import fr from 'element-ui/src/locale/lang/fr'
 import storageUtil from './utils/storageUtil'
 
+import 'xe-utils'
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/index.css'
+import VueElementExtends from 'vue-element-extends'
+
+import { codemirror } from 'vue-codemirror'
+import 'codemirror/lib/codemirror.css'
+
 Vue.use(ElementUI)
+Vue.use(VueElementExtends)
+Vue.use(VXETable)
+Vue.use(codemirror)
 
 Vue.config.productionTip = false
 

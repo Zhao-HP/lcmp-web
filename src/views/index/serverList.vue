@@ -1,31 +1,34 @@
 <template>
   <div class="container">
-    <div style="height: 150px">
-      <div class="search-wrap">
-        <el-row :gutter="32">
-          <el-col :xs="24" :sm="24" :lg="8">
-            <div class="search-section">
-              <span class="search-label">IP地址：</span>
-              <el-input class="search-item" placeholder="请输入用例ID" v-model="params.ipAddress" clearable
-                        @keyup.enter.native="getTableListData">
-              </el-input>
-            </div>
-          </el-col>
-          <el-col :xs="24" :sm="24" :lg="8">
-            <div class="search-section">
-              <span class="search-label">描述：</span>
-              <el-input class="search-item" placeholder="请输入描述(支持模糊搜索)" v-model="params.info"
-                        clearable @keyup.enter.native="getTableListData"></el-input>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="search-btn">
-        <el-button type="primary" @click="getTableListData">查询</el-button>
-        <el-button class="bot-btn" @click="saveNServerInfo">添加</el-button>
-      </div>
-    </div>
-    <el-table :data="tableList" border highlight-current-row @row-dblclick="changeDialogFormVisible">
+    <el-row>
+      <el-col  :xs="24" :sm="24" :lg="24" :md="24" :xl="24">
+        <span>IP地址：</span>
+        <el-input
+          class="search-item"
+          placeholder="请输入IP地址"
+          v-model="params.ipAddress"
+          clearable
+          @keyup.enter.native="getTableListData"
+        ></el-input>
+      <span class="search-label">描述：</span>
+      <el-input
+        class="search-item"
+        placeholder="请输入描述(支持模糊搜索)"
+        v-model="params.info"
+        clearable
+        @keyup.enter.native="getTableListData"
+      ></el-input>
+      <el-button class="searchBtn" type="primary" @click="getTableListData">查询</el-button>
+      <el-button class="searchBtn" @click="saveNServerInfo">添加</el-button>
+    </el-col>
+    </el-row>
+
+    <el-table
+      :data="tableList"
+      border
+      highlight-current-row
+      @row-dblclick="changeDialogFormVisible"
+    >
       <el-table-column label="用户名" prop="loginName" align="center" width="100">
         <template slot-scope="scope">
           <span>{{ scope.row.loginName }}</span>
@@ -51,7 +54,7 @@
           <span>{{ scope.row.createTime }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="描述" prop="info" align="center" :show-overflow-tooltip='true'>
+      <el-table-column label="描述" prop="info" align="center" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <span>{{ scope.row.info }}</span>
         </template>
@@ -84,7 +87,7 @@
           <el-input v-model="dialogFormContent.loginPwd" type="password"></el-input>
         </el-form-item>
         <el-form-item label="CPU数">
-          <el-select v-model="dialogFormContent.cpuNum" placeholder="请选择CPU数">
+          <el-select v-model="dialogFormContent.cpuNum" placeholder="请选择CPU数" filterable>
             <el-option label="1" value="1"></el-option>
             <el-option label="2" value="2"></el-option>
             <el-option label="4" value="4"></el-option>
@@ -95,7 +98,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="内存大小">
-          <el-select v-model="dialogFormContent.ramNum" placeholder="请选择内存大小">
+          <el-select v-model="dialogFormContent.ramNum" placeholder="请选择内存大小" filterable>
             <el-option label="2G" value="2"></el-option>
             <el-option label="4G" value="4"></el-option>
             <el-option label="8G" value="8"></el-option>
@@ -117,105 +120,115 @@
 </template>
 
 <script>
-  import { getServerInfoByUid, saveOrUpdateServerInfoById } from '../../api/server'
-  import Pagination from '@/components/Pagination/index'
-  import storageUtil from '../../utils/storageUtil'
+import {
+  getServerInfoByUid,
+  saveOrUpdateServerInfoById
+} from "../../api/server";
+import Pagination from "@/components/Pagination/index";
+import storageUtil from "../../utils/storageUtil";
 
-  export default {
-    components: { Pagination },
-    data() {
-      return {
-        tableList: [],
-        uid: '',
-        userInfo: '',
-        total: 0,
-        params: {
-          pageNum: 1,
-          pageSize: 10,
-          ipAddress: null,
-          info: null
-        },
-        dialogFormVisible: false,
-        dialogFormContent: ''
-      }
-    },
-    created() {
-      this.getParams()
-      this.getTableListData()
-    },
-    methods: {
-      // 获得
-      getParams() {
-        this.userInfo = storageUtil.readData('userInfo')
+export default {
+  components: { Pagination },
+  data() {
+    return {
+      tableList: [],
+      uid: "",
+      userInfo: "",
+      total: 0,
+      params: {
+        pageNum: 1,
+        pageSize: 10,
+        ipAddress: null,
+        info: null
       },
+      dialogFormVisible: false,
+      dialogFormContent: ""
+    };
+  },
+  created() {
+    this.getParams();
+    this.getTableListData();
+  },
+  methods: {
+    // 获得
+    getParams() {
+      this.userInfo = storageUtil.readData("userInfo");
+    },
 
-      // 根据用户ID，获得服务列表
-      getTableListData() {
-        let params = this.params
-        params.userId = this.userInfo.id
-        getServerInfoByUid(params).then(response => {
-          // console.log(response)
-          this.tableList = response.data.records
-          this.total = response.data.total
-        })
-      },
-      // 根据服务器ID获得服务器信息【部分信息从服务器上获取】
-      checkServiceInfo(serverId) {
-        // console.log(serverId)
-        this.$router.push({
-          path: '/server/dashboard'
-        })
-      },
-      changeDialogFormVisible(row, column, event) {
-        this.dialogFormVisible = true
-        this.dialogFormContent = row
-      },
-      saveNServerInfo() {
-        this.dialogFormContent = {
-          'loginName': this.userInfo.username,
-          'ipAddress': '',
-          'loginPwd': '',
-          'cpuNum': '',
-          'ramNum': '',
-          'info': '',
-          'userId': this.userInfo.id
+    // 根据用户ID，获得服务列表
+    getTableListData() {
+      let params = this.params;
+      params.userId = this.userInfo.id;
+      getServerInfoByUid(params).then(response => {
+        // console.log(response)
+        this.tableList = response.data.records;
+        this.total = response.data.total;
+      });
+    },
+    // 根据服务器ID获得服务器信息【部分信息从服务器上获取】
+    checkServiceInfo(serverId) {
+      // console.log(serverId)
+      this.$router.push({
+        path: "/server/dashboard"
+      });
+    },
+    changeDialogFormVisible(row, column, event) {
+      this.dialogFormVisible = true;
+      this.dialogFormContent = row;
+    },
+    saveNServerInfo() {
+      this.dialogFormContent = {
+        loginName: this.userInfo.username,
+        ipAddress: "",
+        loginPwd: "",
+        cpuNum: "",
+        ramNum: "",
+        info: "",
+        userId: this.userInfo.id
+      };
+      this.dialogFormVisible = true;
+    },
+    saveOrUpdateServerInfoById() {
+      saveOrUpdateServerInfoById(this.dialogFormContent).then(response => {
+        console.log(response);
+        if (response.success) {
+          this.$message.success(response.data);
+        } else {
+          this.$message.error(response.errorMessage);
         }
-        this.dialogFormVisible = true
-      },
-      saveOrUpdateServerInfoById() {
-        saveOrUpdateServerInfoById(this.dialogFormContent).then(response => {
-          if (response.success) {
-            this.$message.success(response.data)
-          } else {
-            this.$message.error(response.errorMessage)
-          }
-          this.dialogFormVisible = false
-          this.getTableListData()
-        })
-      },
-      handleApplicationInfo(){
-        this.$router.push({
-          path: '/server/applicationList'
-        })
-      },
-      handleServerConfig(){
-        this.$router.push({
-          path: '/server/serverConfig'
-        })
-      }
+        this.dialogFormVisible = false;
+        this.getTableListData();
+      });
+    },
+    handleApplicationInfo() {
+      this.$router.push({
+        path: "/server/applicationList"
+      });
+    },
+    handleServerConfig() {
+      this.$router.push({
+        path: "/server/serverConfig"
+      });
     }
   }
+};
 </script>
 
-<style lang="stylus" scoped>
-  .container {
-    background: #fff;
-    box-shadow: 0 1px 4px 1px rgba(1, 0, 0, 0.2);
-    height: 100%;
-    padding: 10px;
-    margin: 10px;
-  }
-  .search-btn{
-    margin-top: 10px;
-  }
+<style lang="scss" scoped>
+.container {
+  background: #fff;
+  box-shadow: 0 1px 4px 1px rgba(1, 0, 0, 0.2);
+  height: 100%;
+  padding: 10px;
+  margin: 10px;
+}
+
+.search-btn {
+  margin-top: 10px;
+}
+.search-item{
+  width:300px;
+  margin-bottom: 10px;
+  margin-right: 30px;
+}
 </style>

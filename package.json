@@ -30,6 +30,8 @@
     "vuex": "^3.1.2",
     "codemirror": "^5.52.2",
     "vue-codemirror": "^4.0.6",
+    "xe-utils": "^2.2.4",
+    "vxe-table": "^2.5.22",
     "vue-element-extends": "^1.2.22"
   },
   "devDependencies": {
