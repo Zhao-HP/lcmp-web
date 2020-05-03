@@ -39,3 +39,19 @@ export function deleteConfigFileInfoById(params) {
     params
   })
 }
+
+export function getConfigFileContent(params){
+  return request({
+    url:'/getConfigFileContent',
+    method:'get',
+    params
+  })
+}
+
+export function updateConfigFileContent(params) {
+  return request({
+    url:'/updateConfigFileContent',
+    method:'post',
+    params
+  })
+}

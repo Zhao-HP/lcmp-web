@@ -33,7 +33,7 @@ Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
   const path = to.path;
-  if (!path.includes("login")){
+  if (!path.includes("login") && !path.includes("register")){
     if (storageUtil.readData("userInfo") === null ){
       next('/login')
     }else{

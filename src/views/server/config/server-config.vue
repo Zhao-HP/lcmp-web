@@ -1,7 +1,7 @@
 <template>
 
   <el-main>
-    <div class="configList" v-for="item in configList">
+    <div class="configList" v-for="item in configList" :key="item.id">
       <single-config-block
         :config-info="item">
       </single-config-block>

@@ -61,8 +61,8 @@
       </el-table-column>
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
-          <el-button type="info" size="mini" @click="handleApplicationInfo">应用管理</el-button>
-          <el-button type="info" size="mini" @click="handleServerConfig">应用配置</el-button>
+          <el-button type="info" size="mini" @click="handleApplicationInfo(scope.row.id)">应用管理</el-button>
+          <el-button type="info" size="mini" @click="handleServerConfig(scope.row.id)">应用配置</el-button>
           <el-button type="info" size="mini" @click="checkServiceInfo(scope.row.id)">服务器信息</el-button>
         </template>
       </el-table-column>
@@ -167,7 +167,7 @@ export default {
     },
     // 根据服务器ID获得服务器信息【部分信息从服务器上获取】
     checkServiceInfo(serverId) {
-      // console.log(serverId)
+      storageUtil.saveData("serverId",id);
       this.$router.push({
         path: "/server/dashboard"
       });
@@ -200,12 +200,14 @@ export default {
         this.getTableListData();
       });
     },
-    handleApplicationInfo() {
+    handleApplicationInfo(id) {
+      storageUtil.saveData("serverId",id);
       this.$router.push({
         path: "/server/applicationList"
       });
     },
-    handleServerConfig() {
+    handleServerConfig(id) {
+      storageUtil.saveData("serverId",id);
       this.$router.push({
         path: "/server/serverConfig"
       });

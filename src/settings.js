@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: 'LCMP配置文件管理',
 
   /**
    * @type {boolean} true | false

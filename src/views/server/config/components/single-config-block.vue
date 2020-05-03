@@ -45,7 +45,9 @@
     },
     methods:{
       getConfigFileContext(configName){
-        this.$router.push(`/codeMirror/index/${configName}`)
+        this.$router.push({
+          path:`/codeMirror/index/${configName}`,
+        })
       }
     }
   }

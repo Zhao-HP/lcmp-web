@@ -18,6 +18,11 @@ export const constantRoutes = [
     redirect: '/login',
   },
   {
+    path:'/register',
+    component:()=>import('@/views/login/register'),
+    hidden: true
+  },
+  {
     path:'/codeMirror',
     component: Layout,
     name:'配置文件',
