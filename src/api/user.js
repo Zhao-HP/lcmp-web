@@ -8,3 +8,10 @@ export function login(params) {
   })
 }
 
+export function userRegister(params) {
+  return request({
+    url:'/userRegister',
+    method:'post',
+    params
+  })
+}

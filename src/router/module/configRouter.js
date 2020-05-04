@@ -13,7 +13,7 @@ const configRouter = {
     {
       path: 'config-file-manage',
       component: ()=>import("@/views/server/config/configFileManage"),
-      name:'server-list',
+      name:'config-file-manage',
       meta:{ title:'配置文件管理'}
     }
   ]

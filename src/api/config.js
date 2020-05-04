@@ -40,18 +40,34 @@ export function deleteConfigFileInfoById(params) {
   })
 }
 
-export function getConfigFileContent(params){
+export function getConfigFileContent(params) {
   return request({
-    url:'/getConfigFileContent',
-    method:'get',
+    url: '/getConfigFileContent',
+    method: 'get',
     params
   })
 }
 
 export function updateConfigFileContent(params) {
   return request({
-    url:'/updateConfigFileContent',
-    method:'post',
+    url: '/updateConfigFileContent',
+    method: 'post',
+    params
+  })
+}
+
+export function getDnsInfoListByServerId(params) {
+  return request({
+    url: '/getDnsInfoListByServerId',
+    method: 'get',
+    params
+  })
+}
+
+export function updateDnsInfoListByServerId(params) {
+  return request({
+    url: '/updateDnsInfoListByServerId',
+    method: 'post',
     params
   })
 }

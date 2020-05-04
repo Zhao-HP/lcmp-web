@@ -6,10 +6,10 @@
       </div>
       <div class="configInfo">
         <div class="configCode">
-          <span>{{configInfo.configCode}}</span>
+          <span>{{configCode}}</span>
         </div>
         <div class="configDesc">
-          <span>{{configInfo.configDesc}}</span>
+          <span>{{configDesc}}</span>
         </div>
       </div>
     </div>
@@ -17,17 +17,12 @@
     <div class="footer">
       <span></span>
       <div class="footerText">
+        <slot name="easyBtn"></slot>
         <el-button
           type="info"
           size="mini" plain
-          :disabled="configInfo.easyBtnIsDisable"
-          class="configBtn">简易配置
-        </el-button>
-        <el-button
-          type="info"
-          size="mini" plain
-          :disabled="configInfo.fileBtnIsDisable"
-          @click="getConfigFileContext(configInfo.configCode)"
+          :disabled="fileBtnIsDisable"
+          @click="getConfigFileContext(configCode)"
           class="configBtn">配置文件
         </el-button>
       </div>
@@ -39,8 +34,15 @@
   export default {
     name: 'single-config-block',
     props: {
-      configInfo:{
-        type:Object
+      configCode:{},
+      configDesc:{},
+      easyBtnIsDisable:{
+        type:Boolean,
+        default:true
+      },
+      fileBtnIsDisable:{
+        type:Boolean,
+        default:false
       }
     },
     methods:{
@@ -108,9 +110,13 @@
 
   .configBtn {
     margin-top: 15%;
-    width: 65px;
+    width: 60px;
     padding-left: 0;
     padding-right: 0;
+    margin-right: 5px;
   }
 
+  .footerText{
+    float: right;
+  }
 </style>

@@ -75,6 +75,7 @@
       @pagination="getTableListData()"
     />
 
+    <!-- 添加服务器 -->
     <el-dialog title="服务器信息" :visible.sync="dialogFormVisible">
       <el-form ref="form" :model="dialogFormContent" label-width="80px">
         <el-form-item label="用户名">
@@ -167,7 +168,7 @@ export default {
     },
     // 根据服务器ID获得服务器信息【部分信息从服务器上获取】
     checkServiceInfo(serverId) {
-      storageUtil.saveData("serverId",id);
+      storageUtil.saveData("serverId",serverId);
       this.$router.push({
         path: "/server/dashboard"
       });
