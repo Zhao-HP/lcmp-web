@@ -94,11 +94,21 @@
         )
       },
       configFileUpdate() {
-        console.log(this.code.getValue())
         updateConfigFileContent({
           'configCode': this.$route.params.configName,
           'fileContent': this.code.getValue()
         }).then(response => {
+          if (response.success) {
+            this.$message({
+              message: response.data,
+              type: 'success'
+            })
+          } else {
+            this.$message({
+              message: response.errorMessage,
+              type: 'error'
+            })
+          }
         })
       }
     }

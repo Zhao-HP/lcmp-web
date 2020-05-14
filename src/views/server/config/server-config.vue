@@ -16,6 +16,25 @@
             </el-button>
           </template>
         </single-config-block>
+        <single-config-block config-desc="网卡配置文件，目前只支持ifcfg-eth0" config-code="ifcfg-eth0">
+          <template v-slot:easyBtn>
+            <el-button
+              type="info"
+              size="mini" plain
+              class="configBtn"
+              @click="eth0DialogFormVisible=true">简易配置
+            </el-button>
+          </template>
+        </single-config-block>
+        <single-config-block config-desc="DHCP配置文件" config-code="dhcpd">
+          <template v-slot:easyBtn>
+            <el-button
+              type="info"
+              size="mini" plain 
+              class="configBtn" >简易配置
+            </el-button>
+          </template>
+        </single-config-block>
       </div>
     </el-card>
     <el-card class="box-card">
@@ -31,26 +50,32 @@
     <el-dialog :visible.sync="dnsDialogFormVisible" title="添加DNS配置" align="center">
       <dnsTable></dnsTable>
     </el-dialog>
-
+    <el-dialog :visible.sync="eth0DialogFormVisible" title="修改网卡配置" align="center" width="500px">
+      <ifcfg-eth0></ifcfg-eth0>
+    </el-dialog>
   </el-main>
 </template>
 
 <script>
   import singleConfigBlock from './components/single-config-block'
   import dnsTable from './components/dns-table'
+  import ifcfgEth0 from './components/ifcfg-eth0'
   import { getConfigFileInfoListByUserIdAndServerId } from '../../../api/config'
 
   export default {
     name: 'server-config',
     components: {
       singleConfigBlock,
-      dnsTable
+      dnsTable,
+      ifcfgEth0
+
     },
     data() {
       return {
         configList: [],
-        dnsList:[],
-        dnsDialogFormVisible: false
+        dnsList: [],
+        dnsDialogFormVisible: false,
+        eth0DialogFormVisible: false
       }
     },
     created() {

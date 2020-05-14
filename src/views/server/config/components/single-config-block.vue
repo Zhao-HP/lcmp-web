@@ -63,7 +63,8 @@
     border: 1px solid #ccc;
     background: -webkit-linear-gradient(top, #fff, #f9f9f9);
     position: static;
-    border-radius: 5px
+    border-radius: 5px;
+    float: left;
   }
 
   .header {

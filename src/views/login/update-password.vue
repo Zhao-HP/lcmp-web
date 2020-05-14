@@ -1,57 +1,55 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm"
-             :rules="loginRules" class="login-form"
-             auto-complete="on" label-position="left">
+    <!--<el-form ref="loginForm" :model="loginForm"-->
+    <!--         :rules="loginRules" class="login-form"-->
+    <!--         auto-complete="on" label-position="left">-->
 
-      <div class="title-container">
-        <h3 class="title">登录系统</h3>
-      </div>
+    <!--  <div class="title-container">-->
+    <!--    <h3 class="title">修改密码</h3>-->
+    <!--  </div>-->
 
-      <el-form-item prop="account">
-        <span class="svg-container">
-          <svg-icon icon-class="user"/>
-        </span>
-        <el-input
-          ref="account"
-          v-model="loginForm.account"
-          placeholder="Account"
-          name="account"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
-      </el-form-item>
+    <!--  <el-form-item prop="account">-->
+    <!--    <span class="svg-container">-->
+    <!--      <svg-icon icon-class="user"/>-->
+    <!--    </span>-->
+    <!--    <el-input-->
+    <!--      ref="account"-->
+    <!--      v-model="loginForm.account"-->
+    <!--      placeholder="Account"-->
+    <!--      name="account"-->
+    <!--      type="text"-->
+    <!--      tabindex="1"-->
+    <!--      auto-complete="on"-->
+    <!--    />-->
+    <!--  </el-form-item>-->
 
-      <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="password"/>
-        </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="Password"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-        />
-        <span class="show-pwd" @click="showPwd">
-          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>
-        </span>
-      </el-form-item>
-      <div class="forgetPwd">
-        <router-link to="/updatePassword" style="color:red">忘记密码？</router-link>
-      </div>
-      <el-button :loading="loading" type="primary" style="width:45%;margin-bottom:30px;"
-                 @click.native.prevent="handleLogin">登录
-      </el-button>
-      <el-button :loading="loading" type="primary" style="width:45%;margin-left:10%;margin-bottom:30px;"
-                 @click.native.prevent="handleRegister">注册
-      </el-button>
+    <!--  <el-form-item prop="password">-->
+    <!--    <span class="svg-container">-->
+    <!--      <svg-icon icon-class="password"/>-->
+    <!--    </span>-->
+    <!--    <el-input-->
+    <!--      :key="passwordType"-->
+    <!--      ref="password"-->
+    <!--      v-model="loginForm.password"-->
+    <!--      :type="passwordType"-->
+    <!--      placeholder="Password"-->
+    <!--      name="password"-->
+    <!--      tabindex="2"-->
+    <!--      auto-complete="on"-->
+    <!--    />-->
+    <!--    <span class="show-pwd" @click="showPwd">-->
+    <!--      <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"/>-->
+    <!--    </span>-->
+    <!--  </el-form-item>-->
+    <!--  <el-button :loading="loading" type="primary" style="width:45%;margin-bottom:30px;"-->
+    <!--             @click.native.prevent="handleLogin">登录-->
+    <!--  </el-button>-->
+    <!--  <el-button :loading="loading" type="primary" style="width:45%;margin-left:10%;margin-bottom:30px;"-->
+    <!--             @click.native.prevent="handleRegister">注册-->
+    <!--  </el-button>-->
 
-    </el-form>
+    <!--</el-form>-->
+    <span>1234567897878997</span>
   </div>
 </template>
 
@@ -61,7 +59,7 @@
   import storageUtil from '../../utils/storageUtil'
 
   export default {
-    name: 'Login',
+    name: 'update-password',
     data() {
       return {
         loginForm: {

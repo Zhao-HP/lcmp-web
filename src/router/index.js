@@ -23,6 +23,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path:'/updatePassword',
+    component:()=>import('@/views/login/update-password'),
+    hidden: true
+  },
+  {
     path:'/codeMirror',
     component: Layout,
     name:'配置文件',

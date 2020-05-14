@@ -11,7 +11,6 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
-    console.log(config)
     const serverId = storageUtil.readData("serverId");
     if (serverId){
       config.headers['serverId'] = serverId;
