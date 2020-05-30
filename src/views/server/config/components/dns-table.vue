@@ -100,7 +100,7 @@
 <style lang="scss" scoped>
   .component-section {
     margin-top: 12px;
-    width: 100%
+    width: 100%;
   }
 
   .component-section1 {
@@ -110,7 +110,8 @@
 
   .component-item {
     float: left;
-    width: 60% !important;
+    font-size: 15px;
+    width: 70% !important;
     vertical-align: middle
   }
 

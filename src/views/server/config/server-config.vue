@@ -30,7 +30,7 @@
           <template v-slot:easyBtn>
             <el-button
               type="info"
-              size="mini" plain 
+              size="mini" plain
               class="configBtn" >简易配置
             </el-button>
           </template>
@@ -47,10 +47,11 @@
       </div>
     </el-card>
 
-    <el-dialog :visible.sync="dnsDialogFormVisible" title="添加DNS配置" align="center">
+    <el-dialog :visible.sync="dnsDialogFormVisible" title="添加DNS配置"
+               align="center" top="2vh" style="margin-left:-500px" width="600px">
       <dnsTable></dnsTable>
     </el-dialog>
-    <el-dialog :visible.sync="eth0DialogFormVisible" title="修改网卡配置" align="center" width="500px">
+    <el-dialog :visible.sync="eth0DialogFormVisible" title="修改网卡配置" align="center" width="500px" top="2vh">
       <ifcfg-eth0></ifcfg-eth0>
     </el-dialog>
   </el-main>
